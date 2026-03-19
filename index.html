@@ -244,9 +244,9 @@
       height: 3px;
     }
 
-    .track-1a::after { background: linear-gradient(90deg, #e94560, #ff6b9d); }
-    .track-1b::after { background: linear-gradient(90deg, #0f3460, #4a9eff); }
-    .track-2::after  { background: linear-gradient(90deg, #f5c518, #ff8c00); }
+    .track-tu-sys::after  { background: linear-gradient(90deg, #e94560, #ff6b9d); }
+    .track-tu-art::after  { background: linear-gradient(90deg, #0f3460, #4a9eff); }
+    .track-ieee::after    { background: linear-gradient(90deg, #f5c518, #ff8c00); }
 
     .track-label {
       font-size: 0.75rem;
@@ -498,12 +498,12 @@
 <header>
   <div class="header-badge">동명대학교 게임학부</div>
   <h1>제4회 TU <span>게임 챌린지</span> 2026</h1>
-  <p class="subtitle">Tongmyong University Game Challenge · 학부생 게임 제작 공모전</p>
+  <p class="subtitle">Tongmyong University Game Challenge · 게임 제작 공모전</p>
   <div class="header-tags">
     <span class="tag">📅 접수기간 미정</span>
     <span class="tag">🎮 3개 트랙</span>
-    <span class="tag">🏆 IEEE 섹션 후원</span>
-    <span class="tag">🎯 학부 내외 참가 가능</span>
+    <span class="tag">🏆 IEEE 부울경 섹션 후원</span>
+    <span class="tag">🎯 게임학부 · 부울경 지역 대학생</span>
   </div>
 </header>
 
@@ -541,11 +541,11 @@
   </div>
 
   <div class="card">
-    <h3>참가 자격</h3>
+    <h3>참가 자격 — 트랙별 요약</h3>
     <ul class="check-list">
-      <li>동명대학교 게임학부 재학생 (학부생)</li>
+      <li><strong>TU-Game System</strong> · <strong>TU-Game Arts</strong> : 동명대학교 게임학부 재학생</li>
+      <li><strong>IEEE-Game System</strong> : 부산·울산·경남 지역 대학교 재학생 (학부생)</li>
       <li>1인 또는 팀 단위 참가 가능 (팀 인원 제한은 공고 시 확인)</li>
-      <li>트랙별 참가 조건은 각 트랙 세부 공고 참조</li>
     </ul>
   </div>
 </section>
@@ -615,37 +615,41 @@
   <p class="section-subtitle">총 3개 트랙으로 운영됩니다. 트랙별 세부 규정은 공고 시 확인해 주세요.</p>
 
   <div class="track-grid">
-    <div class="track-card track-1a">
-      <div class="track-label">Track 1A</div>
-      <div class="track-title">게임 개발 (팀)</div>
+    <div class="track-card track-tu-sys">
+      <div class="track-label">Track 1 · 게임학부 전용</div>
+      <div class="track-title">TU-Game System</div>
       <div class="track-desc">
-        Unity·Unreal 등 게임 엔진을 활용한 팀 단위 게임 개발 트랙.<br><br>
-        플레이 가능한 완성형 빌드 제출 필수.
+        Unity·Unreal 등 게임 엔진을 활용한 게임 개발 트랙.<br><br>
+        플레이 가능한 완성형 빌드 제출 필수.<br><br>
+        <strong style="color:#e94560;">참가 자격:</strong> 동명대학교 게임학부 재학생
       </div>
     </div>
 
-    <div class="track-card track-1b">
-      <div class="track-label">Track 1B</div>
-      <div class="track-title">게임 개발 (개인)</div>
-      <div class="track-desc">
-        1인 개발자를 위한 게임 개발 트랙.<br><br>
-        아이디어 중심 프로토타입부터 완성형 게임까지 폭넓게 수용.
-      </div>
-    </div>
-
-    <div class="track-card track-2">
-      <div class="track-label">Track 2</div>
-      <div class="track-title">게임 그래픽</div>
+    <div class="track-card track-tu-art">
+      <div class="track-label">Track 2 · 게임학부 전용</div>
+      <div class="track-title">TU-Game Arts</div>
       <div class="track-desc">
         캐릭터·UI·배경 등 게임 아트 전문 트랙.<br><br>
-        포트폴리오 형식의 이미지/영상 작품 제출.
+        포트폴리오 형식의 이미지/영상 작품 제출.<br><br>
+        <strong style="color:#4a9eff;">참가 자격:</strong> 동명대학교 게임학부 재학생
+      </div>
+    </div>
+
+    <div class="track-card track-ieee">
+      <div class="track-label">Track 3 · IEEE 후원</div>
+      <div class="track-title">IEEE-Game System</div>
+      <div class="track-desc">
+        IEEE 부울경 섹션 후원으로 운영되는 지역 확장 트랙.<br><br>
+        게임 시스템·콘텐츠 개발 작품 제출.<br><br>
+        <strong style="color:#f5c518;">참가 자격:</strong> 부산·울산·경남 지역 대학교 재학생
       </div>
     </div>
   </div>
 
   <div class="notice-box" style="margin-top:24px;">
     <div class="notice-title">📌 트랙 운영 안내</div>
-    트랙 구분 및 명칭은 전년도 기준이며, 2026년 공고 시 변경될 수 있습니다.
+    TU 트랙(Game System·Game Arts)은 동명대학교 게임학부 학생 전용이며,
+    IEEE-Game System 트랙은 부울경 지역 대학생에게 개방됩니다.
     각 트랙별 심사 기준·제출 형식은 공식 공고문을 참고하세요.
   </div>
 </section>
@@ -659,14 +663,40 @@
 
   <div style="margin-bottom:28px;">
     <div class="section-title" style="font-size:1.1rem; margin-bottom:16px; color:var(--text-muted);">
-      &nbsp;Track 1A / 1B — 게임 개발
+      &nbsp;Track 1 — TU-Game System
     </div>
     <div class="prize-grid">
       <div class="prize-card">
         <div class="prize-rank">1st</div>
         <div class="prize-name">대 상</div>
         <div class="prize-amount">미정 <span>원</span></div>
-        <div class="prize-note">총장상 + 상금 (IEEE 후원)</div>
+        <div class="prize-note">총장상 + 상금</div>
+      </div>
+      <div class="prize-card">
+        <div class="prize-rank">2nd</div>
+        <div class="prize-name">최우수상</div>
+        <div class="prize-amount">미정 <span>원</span></div>
+        <div class="prize-note">학부장상 + 상금</div>
+      </div>
+      <div class="prize-card">
+        <div class="prize-rank">3rd</div>
+        <div class="prize-name">우 수 상</div>
+        <div class="prize-amount">미정 <span>원</span></div>
+        <div class="prize-note">다수 선정</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:28px;">
+    <div class="section-title" style="font-size:1.1rem; margin-bottom:16px; color:var(--text-muted);">
+      &nbsp;Track 2 — TU-Game Arts
+    </div>
+    <div class="prize-grid">
+      <div class="prize-card">
+        <div class="prize-rank">1st</div>
+        <div class="prize-name">대 상</div>
+        <div class="prize-amount">미정 <span>원</span></div>
+        <div class="prize-note">총장상 + 상금</div>
       </div>
       <div class="prize-card">
         <div class="prize-rank">2nd</div>
@@ -685,20 +715,20 @@
 
   <div>
     <div class="section-title" style="font-size:1.1rem; margin-bottom:16px; color:var(--text-muted);">
-      &nbsp;Track 2 — 게임 그래픽
+      &nbsp;Track 3 — IEEE-Game System
     </div>
     <div class="prize-grid">
       <div class="prize-card">
         <div class="prize-rank">1st</div>
         <div class="prize-name">대 상</div>
         <div class="prize-amount">미정 <span>원</span></div>
-        <div class="prize-note">상장 + 상금</div>
+        <div class="prize-note">IEEE 섹션 후원 상금</div>
       </div>
       <div class="prize-card">
         <div class="prize-rank">2nd</div>
         <div class="prize-name">최우수상</div>
         <div class="prize-amount">미정 <span>원</span></div>
-        <div class="prize-note">상장 + 상금</div>
+        <div class="prize-note">IEEE 섹션 후원 상금</div>
       </div>
       <div class="prize-card">
         <div class="prize-rank">3rd</div>
