@@ -21,7 +21,13 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background: var(--bg);
+      background-color: var(--bg);
+      background-image:
+        linear-gradient(rgba(245,247,255,0.92), rgba(245,247,255,0.92)),
+        url('images/GStar2025_booth_exterior.jpg');
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center top;
       color: var(--text);
       font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
       line-height: 1.7;
@@ -112,12 +118,14 @@
 
     /* ── 네비게이션 ── */
     nav {
-      background: var(--bg2);
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       position: sticky;
       top: 0;
       z-index: 100;
-      border-bottom: 1px solid var(--border);
-      box-shadow: 0 2px 12px rgba(61,90,254,0.07);
+      border-bottom: 1px solid rgba(255,255,255,0.6);
+      box-shadow: 0 2px 20px rgba(61,90,254,0.08);
     }
 
     nav ul {
@@ -179,8 +187,9 @@
 
     /* ── 카드 ── */
     .card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.9);
       border-radius: 16px;
       padding: 28px 32px;
       margin-bottom: 16px;
@@ -253,8 +262,9 @@
     }
 
     .track-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.80);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.9);
       border-radius: 20px;
       padding: 32px 28px;
       position: relative;
@@ -316,8 +326,9 @@
     }
 
     .prize-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.80);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.9);
       border-radius: 16px;
       padding: 24px 18px;
       text-align: center;
@@ -373,8 +384,9 @@
     }
 
     .submit-step {
-      background: var(--bg2);
-      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.80);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.9);
       border-radius: 16px;
       padding: 28px 20px;
       text-align: center;
@@ -516,8 +528,9 @@
     }
 
     .contact-item {
-      background: var(--bg2);
-      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.80);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.9);
       border-radius: 14px;
       padding: 22px 24px;
       box-shadow: var(--shadow);
@@ -806,7 +819,7 @@
   <p class="section-title">대회 일정</p>
   <p class="section-subtitle">아래 일정은 전년도 기준 초안입니다. 확정 일정은 공식 공고 후 업데이트됩니다.</p>
 
-  <div class="card" style="padding: 0; overflow: hidden;">
+  <div class="card" style="padding: 0; overflow: hidden; background: rgba(255,255,255,0.88);">
     <table class="schedule-table">
       <thead>
         <tr>
