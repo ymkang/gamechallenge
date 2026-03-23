@@ -1,0 +1,525 @@
+% !TEX program = xelatex
+\documentclass[11pt, a4paper]{article}
+
+%%% ── 패키지 ──────────────────────────────────────────
+\usepackage[top=20mm, bottom=22mm, left=22mm, right=22mm, headheight=13pt]{geometry}
+\usepackage{fontspec}
+\usepackage{kotex}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{colortbl}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+\usepackage{calc}
+
+%%% ── 색상 팔레트 ────────────────────────────────────
+\definecolor{primary}{HTML}{1B2A4A}      % 진한 네이비
+\definecolor{accent}{HTML}{E74C3C}       % 포인트 레드
+\definecolor{accentdark}{HTML}{C0392B}
+\definecolor{gold}{HTML}{F39C12}
+\definecolor{ieee}{HTML}{00629B}         % IEEE 블루
+\definecolor{sectionbg}{HTML}{F0F4F8}
+\definecolor{cardbg}{HTML}{FAFBFD}
+\definecolor{tabhead}{HTML}{2C3E6B}
+\definecolor{tabrow}{HTML}{F5F7FA}
+\definecolor{lightborder}{HTML}{D5DBE5}
+\definecolor{textmain}{HTML}{2C3E50}
+\definecolor{textmuted}{HTML}{7F8C9B}
+\definecolor{linkcolor}{HTML}{2980B9}
+\definecolor{successgreen}{HTML}{27AE60}
+
+%%% ── 폰트 설정 ───────────────────────────────────────
+\setmainhangulfont{KoPubDotum Medium}[
+  BoldFont={KoPubDotum Bold},
+  LightFont={KoPubDotum Light},
+]
+\setmainfont{KoPubDotum Medium}[
+  BoldFont={KoPubDotum Bold},
+  LightFont={KoPubDotum Light},
+]
+
+%%% ── 줄간격 ──────────────────────────────────────────
+\setstretch{1.55}
+
+%%% ── 하이퍼링크 설정 ─────────────────────────────────
+\hypersetup{
+  colorlinks=true,
+  linkcolor=primary,
+  urlcolor=linkcolor,
+  pdfauthor={동명대학교 게임학부},
+  pdftitle={제4회 TU 게임 챌린지 개최 공고},
+}
+
+%%% ── 섹션 스타일 ─────────────────────────────────────
+\titleformat{\section}
+  {\Large\bfseries\color{primary}}
+  {}{0pt}{}
+  [\vspace{-4pt}{\color{accent}\rule{\textwidth}{2pt}}]
+\titlespacing{\section}{0pt}{24pt}{14pt}
+
+%%% ── 머리말·꼬리말 ──────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[L]{\small\color{textmuted} 제4회 TU 게임 챌린지}
+\fancyhead[R]{\small\color{textmuted} 동명대학교 게임학부}
+\fancyfoot[C]{%
+  \begin{tikzpicture}[baseline=0pt]
+    \fill[primary] (0,0) rectangle (1.4em,1.4em);
+    \node[text=white, font=\small\bfseries] at (0.7em,0.7em) {\thepage};
+  \end{tikzpicture}%
+  \;\small\color{textmuted}/\;\pageref{LastPage}%
+}
+
+%%% ── tcolorbox 스타일 정의 ──────────────────────────
+% 메인 타이틀 배너
+\newtcolorbox{titlebanner}{%
+  enhanced, sharp corners,
+  colback=primary, colframe=primary,
+  boxrule=0pt, top=28pt, bottom=28pt, left=24pt, right=24pt,
+  shadow={0mm}{-2mm}{2mm}{black!20},
+  overlay={%
+    \fill[accent, opacity=0.12] ([xshift=-5mm]frame.north west)
+      rectangle ([xshift=60mm, yshift=-18mm]frame.north west);
+    \fill[gold, opacity=0.08] ([xshift=-5mm, yshift=5mm]frame.south east)
+      rectangle ([xshift=-80mm, yshift=22mm]frame.south east);
+  }
+}
+
+% 섹션 안의 정보 카드
+\newtcolorbox{infocard}[1][]{%
+  enhanced, breakable,
+  colback=cardbg, colframe=lightborder,
+  boxrule=0.6pt, arc=6pt,
+  left=14pt, right=14pt, top=12pt, bottom=12pt,
+  shadow={0.5mm}{-0.5mm}{1mm}{black!8},
+  #1
+}
+
+% 강조 박스 (접수 안내 등)
+\newtcolorbox{highlightbox}[1][]{%
+  enhanced, breakable,
+  colback=accent!4, colframe=accent!50,
+  boxrule=0pt, borderline west={3.5pt}{0pt}{accent},
+  arc=4pt, left=14pt, right=14pt, top=10pt, bottom=10pt,
+  #1
+}
+
+% IEEE 강조 박스
+\newtcolorbox{ieeebox}[1][]{%
+  enhanced, breakable,
+  colback=ieee!4, colframe=ieee!40,
+  boxrule=0pt, borderline west={3.5pt}{0pt}{ieee},
+  arc=4pt, left=14pt, right=14pt, top=10pt, bottom=10pt,
+  #1
+}
+
+% 트랙 소제목 박스
+\newtcolorbox{trackheader}[2][]{%
+  enhanced,
+  colback=#2!8, colframe=#2!40,
+  boxrule=0.5pt, arc=4pt,
+  left=12pt, right=12pt, top=6pt, bottom=6pt,
+  fontupper=\bfseries\color{#2!80!black},
+  #1
+}
+
+% 일정 타임라인 테이블용
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+%%% ── 물결표 매크로 ──────────────────────────────────
+\newcommand{\wave}{{\raise.17ex\hbox{$\scriptstyle\sim$}}}
+
+%%% ════════════════════════════════════════════════════
+%%%  본문 시작
+%%% ════════════════════════════════════════════════════
+\begin{document}
+\color{textmain}
+
+% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+%  타이틀 배너
+% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+\begin{titlebanner}
+  \begin{center}
+    {\small\color{white!70} TONGMYONG UNIVERSITY GAME CHALLENGE}\\[8pt]
+    {\fontsize{26pt}{32pt}\selectfont\bfseries\color{white}
+      「제4회 TU 게임 챌린지」}\\[4pt]
+    {\fontsize{26pt}{32pt}\selectfont\bfseries\color{gold} 개최 공고}\\[14pt]
+    {\small\color{white!80}
+      동명대학교 게임학부\;\;·\;\;IEEE 부산섹션 공동 운영\;\;·\;\;2026}
+  \end{center}
+\end{titlebanner}
+
+\vspace{16pt}
+
+% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+%  전문
+% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+\begin{infocard}
+20년 전통의 동명대학교 게임학부 재학생들과 부울경 지역 대학생들의 참신한 아이디어와
+뛰어난 기량을 발휘할 수 있는 「제4회 TU 게임 챌린지」를 개최합니다.
+
+\textbf{\color{accent}수상팀에게는 동명대학교와 IEEE 부산섹션 명의의 표창과 함께 시상금이 수여되며,
+G-Star 전시회에 작품을 전시할 수 있는 자격이 부여}됩니다.
+
+IEEE 부산섹션은 작년에 이어 올해도 본 대회를 지원하며, 부울경 지역 대학생을 대상으로
+IEEE 부산 Section 트랙을 공동 운영합니다. 각 트랙별로 수상자를 선정하며, 2026년 G-Star
+게임쇼 참여 기회를 제공합니다.
+\end{infocard}
+
+\vspace{6pt}
+\begin{flushright}
+  \color{textmuted}\small 2026년 3월 31일\\[4pt]
+  \color{textmain}
+  \textbf{서미라} \;게임그래픽학과장 \qquad
+  \textbf{배재환} \;게임공학과장 \qquad
+  \textbf{박동규} \;부산섹션회장
+\end{flushright}
+
+
+% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+\section{공모 배경}
+% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+\begin{itemize}[leftmargin=1.8em, itemsep=6pt, label={\color{accent}\textbullet}]
+  \item 동명대학교 게임학부와 지역 대학생들이 작품 제작 방식으로 제품개발 역량을 제고할 수 있는
+        기회를 제공하고, 우수한 역량을 갖춘 학생들을 지원하기 위해 공모전을 개최함
+  \item 부울경 지역의 우수 역량을 갖춘 학생들이 국내 최대규모의 게임 전시회에 출품할 수 있도록
+        지원하여 성과를 바탕으로 더욱 성장할 수 있는 기회를 제공하고자 함
+  \item 부울경 지역 대학생들을 지원하기 위해 \textbf{IEEE 부산 섹션과 공동으로 별도의 트랙을 운영}해
+        지역 대학생들이 창의적인 아이디어를 통해 진로를 개발할 수 있는 기회를 제공하고자 함
+\end{itemize}
+
+
+% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+\section{일정}
+% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+\begin{infocard}
+\renewcommand{\arraystretch}{1.45}
+\begin{tabularx}{\textwidth}{@{}>{\bfseries\color{primary}\small}l
+    >{\color{accent}\bfseries\small}l Y@{}}
+  \rowcolor{tabhead}
+  \textcolor{white}{\textsf{단계}} &
+  \textcolor{white}{\textsf{일정}} &
+  \textcolor{white}{\textsf{내용}} \\
+  작품 접수
+    & 09.07.(월)\wave09.10.(목) 17:00
+    & 개인 클라우드 다운로드 가능 링크를 접수 사이트에 제출 \\
+  \rowcolor{tabrow}
+  예선 결과
+    & 09.11.(금)
+    & 제출 작품을 심사하여 본선 진출작 발표 \\
+  본선 발표
+    & 09.18.(금)
+    & 예선 수상자들의 프리젠테이션 이후 심사 결과 발표 \\
+  \rowcolor{tabrow}
+  전문가 자문
+    & 1차 09.21.(월)\wave23.(수)
+    & \multirow{2}{*}{\small 작품 개선을 위한 전문가 자문 (2회)} \\
+  \rowcolor{tabrow}
+    & 2차 10.12.(월)\wave16.(금)
+    & \\
+  시상식
+    & 10.23.(금)
+    & 시상식 및 성과발표회 \\
+  \rowcolor{tabrow}
+  수상작 전시
+    & 10.23.(금)\wave28.(수)
+    & 코팅워크스페이스 \\
+  G-STAR 전시
+    & 11월 중
+    & G-Star 기간 벡스코 전시관 \\
+\end{tabularx}
+\end{infocard}
+
+\begin{highlightbox}
+  \textbf{\color{accent}접수 사이트}\quad
+  \url{https://forms.office.com/r/KaCHHcwxMz}\\
+  접수 방법: 개인 클라우드 다운로드 가능 링크를 접수 사이트에 제출 (동의서 포함)
+\end{highlightbox}
+
+
+% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+\section{응모분야 및 참가 자격}
+% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+\begin{infocard}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\textwidth}{@{}l l Y l@{}}
+  \rowcolor{tabhead}
+  \textcolor{white}{\textsf{\bfseries 트랙}} &
+  \textcolor{white}{\textsf{\bfseries 분야}} &
+  \textcolor{white}{\textsf{\bfseries 내용}} &
+  \textcolor{white}{\textsf{\bfseries 참가 자격}} \\
+  \textbf{\color{accent}1-A}
+    & 게임 시스템
+    & 플레이가 가능한 게임 콘텐츠 시스템
+    & \multirow{2}{*}{\shortstack[l]{동명대학교\\게임학부 재학생}} \\
+  \rowcolor{tabrow}
+  \textbf{\color{primary}1-B}
+    & 게임 그래픽
+    & 게임그래픽 리소스 및 콘텐츠
+    & \\
+  \textbf{\color{ieee}2}
+    & \small IEEE 부산섹션
+    & 플레이가 가능한 게임 콘텐츠 시스템
+    & \shortstack[l]{게임학부 외\\부울경 대학생} \\
+\end{tabularx}
+\end{infocard}
+
+
+% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+\section{시상규모}
+% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+%%% --- 트랙 1-A ---
+\begin{trackheader}{accent}
+  트랙 1-A \;—\; 게임 콘텐츠 시스템 \hfill
+  {\normalfont\small 총 \textbf{2,500,000}원 \;·\; RISE 사업비}
+\end{trackheader}
+\vspace{-4pt}
+\begin{infocard}[colframe=accent!30]
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{@{}l c r r l@{}}
+  \rowcolor{tabhead}
+  \textcolor{white}{\textsf{\bfseries 등급}} &
+  \textcolor{white}{\textsf{\bfseries 팀수}} &
+  \textcolor{white}{\textsf{\bfseries 상금}} &
+  \textcolor{white}{\textsf{\bfseries 상금계}} &
+  \textcolor{white}{\textsf{\bfseries 재원}} \\
+  \textbf{대상}     & 1팀  & 1,000,000원 $\times$ 1 & 1,000,000
+    & \multirow{4}{*}{\small RISE 사업비} \\
+  \rowcolor{tabrow}
+  \textbf{최우수상} & 1팀  & 500,000원 $\times$ 1   & 500,000   & \\
+  \textbf{우수상}   & 4팀  & 250,000원 $\times$ 4   & 1,000,000 & \\
+  \rowcolor{tabrow}
+  \textbf{장려상}   & OO팀 & 없음                    & 없음      & \\
+  \arrayrulecolor{lightborder}\midrule
+  \textbf{계} & \textbf{6팀+} & & \textbf{2,500,000} & \\
+\end{tabularx}
+\end{infocard}
+
+\vspace{8pt}
+
+%%% --- 트랙 1-B ---
+\begin{trackheader}{primary}
+  트랙 1-B \;—\; 게임그래픽 리소스 및 콘텐츠 \hfill
+  {\normalfont\small 총 \textbf{2,200,000}원 \;·\; RISE 사업비}
+\end{trackheader}
+\vspace{-4pt}
+\begin{infocard}[colframe=primary!30]
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{@{}l c r r l@{}}
+  \rowcolor{tabhead}
+  \textcolor{white}{\textsf{\bfseries 등급}} &
+  \textcolor{white}{\textsf{\bfseries 팀수}} &
+  \textcolor{white}{\textsf{\bfseries 상금}} &
+  \textcolor{white}{\textsf{\bfseries 상금계}} &
+  \textcolor{white}{\textsf{\bfseries 재원}} \\
+  \textbf{대상}     & 1팀  & 700,000원 $\times$ 1 & 700,000
+    & \multirow{4}{*}{\small RISE 사업비} \\
+  \rowcolor{tabrow}
+  \textbf{최우수상} & 1팀  & 500,000원 $\times$ 1 & 500,000   & \\
+  \textbf{우수상}   & 4팀  & 250,000원 $\times$ 4 & 1,000,000 & \\
+  \rowcolor{tabrow}
+  \textbf{장려상}   & OO팀 & 없음                  & 없음      & \\
+  \arrayrulecolor{lightborder}\midrule
+  \textbf{계} & \textbf{6팀+} & & \textbf{2,200,000} & \\
+\end{tabularx}
+\end{infocard}
+
+\vspace{8pt}
+
+%%% --- 트랙 2 ---
+\begin{trackheader}{ieee}
+  트랙 2 \;—\; IEEE 부산섹션 트랙 \hfill
+  {\normalfont\small 총 \textbf{2,000,000}원 \;·\; IEEE 부산섹션 후원}
+\end{trackheader}
+\vspace{-4pt}
+\begin{infocard}[colframe=ieee!30]
+\renewcommand{\arraystretch}{1.4}
+\begin{tabularx}{\textwidth}{@{}l c r r l@{}}
+  \rowcolor{tabhead}
+  \textcolor{white}{\textsf{\bfseries 등급}} &
+  \textcolor{white}{\textsf{\bfseries 팀수}} &
+  \textcolor{white}{\textsf{\bfseries 상금}} &
+  \textcolor{white}{\textsf{\bfseries 상금계}} &
+  \textcolor{white}{\textsf{\bfseries 재원}} \\
+  \textbf{대상}     & 1팀 & 600,000원 $\times$ 1 & 600,000
+    & \multirow{3}{*}{\small IEEE 부산섹션} \\
+  \rowcolor{tabrow}
+  \textbf{최우수상} & 1팀 & 400,000원 $\times$ 1 & 400,000   & \\
+  \textbf{우수상}   & 4팀 & 250,000원 $\times$ 4 & 1,000,000 & \\
+  \arrayrulecolor{lightborder}\midrule
+  \textbf{계} & \textbf{6팀} & & \textbf{2,000,000} & \\
+\end{tabularx}
+\end{infocard}
+
+
+% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+\section{제출 방법 및 기타 지원 내용}
+% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+\begin{highlightbox}
+  \textbf{\color{accent}접수 사이트} \quad \url{https://forms.office.com/r/KaCHHcwxMz}\\[2pt]
+  \textbf{제출 방법:} 제출관련 동의서와 작품 링크 제출
+\end{highlightbox}
+
+\vspace{4pt}
+
+\begin{infocard}[title={\bfseries\color{primary} 기타 지원 내용}, coltitle=primary, colbacktitle=primary!6, attach boxed title to top left={yshift=-2mm, xshift=8mm}, boxed title style={boxrule=0.4pt, colframe=primary!30, arc=3pt}]
+\begin{itemize}[leftmargin=1.5em, itemsep=5pt, label={\color{successgreen}\textbullet}]
+  \item 수상자 전원 표창과 상금 수여 후 전시 부스 전시 자격 부여
+  \item G-Star 전시 부스에 팀별 포트폴리오 및 연락처 비치하여 게임업계 인사들과 연결
+  \item 수상작에 들지 못하였으나 우수한 작품은 장려상으로 선정하여 참여 자격 부여
+\end{itemize}
+\end{infocard}
+
+
+% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+\section{작품 제출 방법 — 트랙 1-A / 트랙 2 (게임 콘텐츠 시스템)}
+% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+\begin{infocard}
+\begin{itemize}[leftmargin=1.5em, itemsep=6pt, label={\color{accent}\textbullet}]
+  \item \textbf{제출 작품 대상}
+    \begin{itemize}[leftmargin=1.5em, itemsep=2pt, label={\color{textmuted}$\triangleright$}]
+      \item PC/모바일/VR 게임 콘텐츠
+      \item VR 게임콘텐츠의 경우 시연가능한 시스템을 함께 심사용으로 제출하는 것을 권장
+    \end{itemize}
+  \item \textbf{작품 규격}
+    \begin{itemize}[leftmargin=1.5em, itemsep=2pt, label={\color{textmuted}$\triangleright$}]
+      \item 실행 가능한 게임 프로그램 / 설치파일
+      \item 게임의 진행을 설명할 수 있는 게임 기획 / 사용설명서 첨부 권장
+    \end{itemize}
+  \item \textbf{심사환경}
+    \begin{itemize}[leftmargin=1.5em, itemsep=2pt, label={\color{textmuted}$\triangleright$}]
+      \item 따로 실행 환경을 제출하지 않은 경우 일반적인 노트북 / 실습실 컴퓨터 수준의 사양에서 심사
+      \item 모바일 게임은 블루스택 환경에서 게임 실행 및 심사
+    \end{itemize}
+  \item \textbf{권장 사항}
+    \begin{itemize}[leftmargin=1.5em, itemsep=2pt, label={\color{textmuted}$\triangleright$}]
+      \item 게임의 난이도가 높아 레벨을 순차적으로 해결하고 다음 레벨을 보여주기 어려운 경우,
+            개발자 모드를 통해 원하는 레벨로 이동할 수 있는 기능을 구현할 것을 권장함
+      \item 이러한 개발자 모드의 사용법을 사용설명서에 잘 설명할 것
+    \end{itemize}
+\end{itemize}
+\end{infocard}
+
+
+% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+\section{작품 제출 방법 — 트랙 1-B (게임그래픽 리소스 및 콘텐츠)}
+% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+\begin{infocard}
+\begin{itemize}[leftmargin=1.5em, itemsep=6pt, label={\color{primary}\textbullet}]
+  \item \textbf{제출 작품 대상}
+    \begin{itemize}[leftmargin=1.5em, itemsep=2pt, label={\color{textmuted}$\triangleright$}]
+      \item 게임 캐릭터 디자인 : 게임 캐릭터 전신 캐릭터 턴어라운드(정면, 측면, 후면),
+            간략한 게임설명 및 캐릭터 소개
+      \item 게임 배경 디자인 : 게임 배경 전체샷, 건물, 구조물, 필드 배경 등 4가지 이상의 이미지,
+            간략한 게임세계관 및 배경설정 소개
+      \item 게임 애니메이션 : 캐릭터 및 배경 애니메이션 30초 분량 내외, 주제는 자유
+    \end{itemize}
+  \item \textbf{작품 규격}
+    \begin{itemize}[leftmargin=1.5em, itemsep=2pt, label={\color{textmuted}$\triangleright$}]
+      \item 게임 캐릭터디자인, 게임 배경디자인 : A1 사이즈 가로 (594mm $\times$ 841mm) / 300dpi\\
+            {\small\color{textmuted} ※ 판넬 수는 팀별 최대 2장, 개인은 1장으로 제한함}
+      \item 애니메이션 : H.264 MP4파일
+    \end{itemize}
+\end{itemize}
+\end{infocard}
+
+
+% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+\section{심사 항목 및 배점 기준표}
+% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+\begin{trackheader}{accent}
+  게임 콘텐츠 시스템 \hfill
+  {\normalfont\small\color{textmuted} 트랙 1-A \;/\; 트랙 2 IEEE 부산 섹션 트랙}
+\end{trackheader}
+\vspace{-4pt}
+\begin{infocard}[colframe=accent!30]
+\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\textwidth}{@{}>{\bfseries}l X c@{}}
+  \rowcolor{tabhead}
+  \textcolor{white}{\textsf{평가항목}} &
+  \textcolor{white}{\textsf{세부 내용}} &
+  \textcolor{white}{\textsf{배점}} \\
+  기술적 완성도
+    & 시스템 구현이 안정적으로 동작하며 기술적 오류 없이 완성도 높게 구현되었는가?
+    & \textbf{25}점 \\
+  \rowcolor{tabrow}
+  게임밸런스
+    & 난이도, 보상, 진행 구조 등이 적절하게 설계되어 플레이 경험이 균형 잡혀 있는가?
+    & \textbf{25}점 \\
+  독창성 및 창의
+    & 기존 게임을 단순 모방하지 않고 새로운 아이디어와 차별성을 갖추었는가?
+    & \textbf{25}점 \\
+  \rowcolor{tabrow}
+  UI \& UX
+    & 사용자 인터페이스와 경험이 직관적이며 플레이에 불편함이 없는가?
+    & \textbf{25}점 \\
+\end{tabularx}
+\end{infocard}
+
+\vspace{10pt}
+
+\begin{trackheader}{primary}
+  게임그래픽 리소스 및 콘텐츠 \hfill
+  {\normalfont\small\color{textmuted} 트랙 1-B}
+\end{trackheader}
+\vspace{-4pt}
+\begin{infocard}[colframe=primary!30]
+\renewcommand{\arraystretch}{1.5}
+\begin{tabularx}{\textwidth}{@{}>{\bfseries}l X c@{}}
+  \rowcolor{tabhead}
+  \textcolor{white}{\textsf{평가항목}} &
+  \textcolor{white}{\textsf{세부 내용}} &
+  \textcolor{white}{\textsf{배점}} \\
+  독창성 및 창의성
+    & 독창적인 콘셉트와 창의적인 표현을 통해 차별화된 비주얼을 구현하였는가?
+    & \textbf{25}점 \\
+  \rowcolor{tabrow}
+  시각적 완성도
+    & 전체적인 그래픽 퀄리티와 디테일이 높고 완성도가 우수한가?
+    & \textbf{25}점 \\
+  리소스의 일관성
+    & 캐릭터, 배경, UI 등 모든 그래픽 요소가 일관된 스타일로 구성되었는가?
+    & \textbf{25}점 \\
+  \rowcolor{tabrow}
+  표현력 및 연출
+    & 색감, 구도, 연출 등을 통해 의도한 분위기와 메시지를 효과적으로 전달하는가?
+    & \textbf{25}점 \\
+\end{tabularx}
+\end{infocard}
+
+\vfill
+
+% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+%  하단 안내
+% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+\begin{center}
+\begin{tikzpicture}
+  \fill[primary] (0,0) rectangle (\textwidth, 0.6pt);
+\end{tikzpicture}
+\end{center}
+\vspace{2pt}
+\begin{center}
+  {\small\color{textmuted}
+    동명대학교 게임학부\;\;·\;\;IEEE 부산섹션\;\;·\;\;제4회 TU 게임 챌린지 2026}
+\end{center}
+
+\end{document}
