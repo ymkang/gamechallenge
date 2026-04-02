@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>제3회 TU 게임 챌린지 2025 수상작</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ══════════════════════════════════════
+       Design System: The Tactile Modularist
+       ══════════════════════════════════════ */
+    :root {
+      --primary:      #5D5FEF;
+      --primary-light:#7B7DF5;
+      --secondary:    #9396FF;
+      --accent-mint:  #34D399;
+      --accent-orange:#FB923C;
+      --gold:         #F59E0B;
+      --bg:           #F8FAFC;
+      --bg-card:      rgba(255,255,255,0.92);
+      --text:         #1E293B;
+      --text-muted:   #64748B;
+      --border:       #E2E8F0;
+      --radius-sm:    1rem;
+      --radius:       2rem;
+      --radius-lg:    3rem;
+      --shadow:       0 20px 40px rgba(93,95,239,0.06);
+      --shadow-lg:    0 40px 60px rgba(43,47,50,0.05);
+      --shadow-hover: 0 30px 50px rgba(93,95,239,0.12);
+      --transition:   all 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.7s ease-out forwards;
+    }
+
+    .fade-up:nth-child(1) { animation-delay: 0.05s; }
+    .fade-up:nth-child(2) { animation-delay: 0.12s; }
+    .fade-up:nth-child(3) { animation-delay: 0.19s; }
+    .fade-up:nth-child(4) { animation-delay: 0.26s; }
+    .fade-up:nth-child(5) { animation-delay: 0.33s; }
+    .fade-up:nth-child(6) { animation-delay: 0.40s; }
+
+    /* ── 헤더 ── */
+    .page-header {
+      background: linear-gradient(135deg, #5D5FEF 0%, #7B7DF5 40%, #9396FF 100%);
+      text-align: center;
+      padding: 80px 24px 70px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 15% 60%, rgba(255,255,255,0.12) 0%, transparent 50%),
+        radial-gradient(circle at 85% 25%, rgba(255,200,100,0.15) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    .page-header::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0; right: 0;
+      height: 80px;
+      background: var(--bg);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      padding: 8px 22px;
+      border-radius: 9999px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      transition: var(--transition);
+    }
+
+    .back-link:hover {
+      background: rgba(255,255,255,0.25);
+      transform: translateY(-2px);
+    }
+
+    .page-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: white;
+      text-shadow: 0 4px 30px rgba(0,0,0,0.1);
+      margin-bottom: 12px;
+    }
+
+    .page-header h1 span {
+      background: linear-gradient(90deg, #FDE68A, #FBBF24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-header p {
+      color: rgba(255,255,255,0.8);
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    /* ── 탭 네비게이션 ── */
+    .tab-nav {
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(20px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255,255,255,0.8);
+      box-shadow: 0 4px 30px rgba(93,95,239,0.06);
+    }
+
+    .tab-nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .tab-nav ul li a {
+      display: block;
+      padding: 16px 24px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 700;
+      transition: var(--transition);
+      border-bottom: 3px solid transparent;
+    }
+
+    .tab-nav ul li a:hover,
+    .tab-nav ul li a.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    /* ── 공통 ── */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 1.6rem;
+      background: linear-gradient(180deg, var(--primary), var(--secondary));
+      border-radius: 3px;
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      margin-bottom: 36px;
+      font-size: 0.93rem;
+      font-weight: 500;
+    }
+
+    .track-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      padding: 6px 18px;
+      border-radius: 9999px;
+      margin-bottom: 20px;
+    }
+
+    .track-badge-1a {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+    }
+
+    .track-badge-1b {
+      background: linear-gradient(135deg, var(--accent-mint), #6EE7B7);
+      color: #064E3B;
+    }
+
+    .track-badge-ieee {
+      background: linear-gradient(135deg, var(--accent-orange), #FDE68A);
+      color: #7C2D12;
+    }
+
+    /* ── 수상작 카드 ── */
+    .award-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.95);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .award-card:hover {
+      transform: translateY(-4px) scale(1.005);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .award-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .award-rank {
+      flex-shrink: 0;
+      width: 60px;
+      height: 60px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    }
+
+    .rank-grand    { background: linear-gradient(135deg, #FFD700, #FFB300); }
+    .rank-best     { background: linear-gradient(135deg, #E2E8F0, #CBD5E1); }
+    .rank-excellent { background: linear-gradient(135deg, #D97706, #FBBF24); }
+
+    .award-rank-text {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .award-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .award-team {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+      font-weight: 500;
+    }
+
+    .award-image {
+      width: 100%;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: var(--transition);
+      display: block;
+    }
+
+    .award-image:hover {
+      transform: scale(1.02);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* ── 부스 갤러리 ── */
+    .booth-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .booth-item {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .booth-item:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .booth-item img {
+      width: 100%;
+      height: 270px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease-out;
+    }
+
+    .booth-item:hover img { transform: scale(1.06); }
+
+    .booth-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent 50%, rgba(30,41,59,0.6));
+      opacity: 0;
+      transition: opacity 0.35s ease-out;
+      display: flex;
+      align-items: flex-end;
+      padding: 18px;
+    }
+
+    .booth-item:hover .booth-item-overlay { opacity: 1; }
+
+    .booth-item-overlay p {
+      color: white;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    /* ── 구분선 ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* ── 라이트박스 ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.92);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .lightbox.active { display: flex; }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 88vh;
+      border-radius: var(--radius);
+      box-shadow: 0 30px 90px rgba(0,0,0,0.4);
+      object-fit: contain;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 24px; right: 32px;
+      color: white;
+      font-size: 1.8rem;
+      cursor: pointer;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      width: 52px; height: 52px;
+      border-radius: 9999px;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+
+    .lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+    .lightbox-prev, .lightbox-next {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      color: white;
+      font-size: 1.6rem;
+      cursor: pointer;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      width: 56px; height: 56px;
+      border-radius: 9999px;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+
+    .lightbox-prev { left: 24px; }
+    .lightbox-next { right: 24px; }
+    .lightbox-prev:hover, .lightbox-next:hover { background: rgba(255,255,255,0.25); }
+
+    .lightbox-caption {
+      position: absolute;
+      bottom: 28px;
+      color: rgba(255,255,255,0.75);
+      font-size: 0.88rem;
+      text-align: center;
+      width: 100%;
+      font-weight: 600;
+    }
+
+    /* ── 푸터 ── */
+    footer {
+      background: #1E293B;
+      text-align: center;
+      padding: 48px 24px;
+      color: #94A3B8;
+      font-size: 0.85rem;
+      margin-top: 24px;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+
+    footer strong { color: #E2E8F0; }
+
+    /* ── 반응형 ── */
+    @media (max-width: 600px) {
+      .page-header { padding: 60px 16px 50px; }
+      .booth-grid { grid-template-columns: 1fr; }
+      .booth-item img { height: 200px; }
+      .award-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .award-card { padding: 28px 24px; border-radius: var(--radius); }
+      .container { padding: 40px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ====== 헤더 ====== -->
+<div class="page-header">
+  <a href="index.html" class="back-link">&#8592; 제4회 TU 게임 챌린지 2026</a>
+  <h1>제3회 TU <span>게임 챌린지</span> 2025 수상작</h1>
+  <p>제3회 TU 게임 챌린지 수상작 전시 &middot; 2025년 G-STAR 출품작</p>
+</div>
+
+<!-- ====== 탭 네비게이션 ====== -->
+<nav class="tab-nav">
+  <ul>
+    <li><a href="#track1a">Track 1-A</a></li>
+    <li><a href="#track1b">Track 1-B</a></li>
+    <li><a href="#track2">IEEE Track 2</a></li>
+    <li><a href="#booth">G-STAR 현장</a></li>
+  </ul>
+</nav>
+
+<!-- ====== Track 1-A ====== -->
+<section class="container" id="track1a">
+  <span class="track-badge track-badge-1a">TRACK 1-A</span>
+  <p class="section-title">게임 콘텐츠 시스템</p>
+  <p class="section-subtitle">동명대학교 게임학부 재학생 &middot; 총 시상 250만원</p>
+
+  <div class="award-card fade-up">
+    <div class="award-header">
+      <div class="award-rank rank-grand">&#127942;</div>
+      <div>
+        <div class="award-rank-text">대상 &middot; 100만원</div>
+        <div class="award-title">Food And Sinkhole</div>
+        <div class="award-team">T1A04 &middot; 이효근, 이주현, 서한결</div>
+      </div>
+    </div>
+    <img class="award-image" src="images/awards2025/1A%EB%8C%80%EC%83%81.png" alt="Food And Sinkhole" onclick="openLightbox(0)">
+  </div>
+
+  <div class="award-card fade-up">
+    <div class="award-header">
+      <div class="award-rank rank-best">&#127941;</div>
+      <div>
+        <div class="award-rank-text">최우수상 &middot; 50만원</div>
+        <div class="award-title">마음을 담아</div>
+        <div class="award-team">T1A-06 &middot; 김겸, 김나영, 유현수, 강다현, 강래준</div>
+      </div>
+    </div>
+    <img class="award-image" src="images/awards2025/1A%EC%B5%9C%EC%9A%B0%EC%88%98.png" alt="마음을 담아" onclick="openLightbox(1)">
+  </div>
+
+  <div class="award-card fade-up">
+    <div class="award-header">
+      <div class="award-rank rank-excellent">&#127944;</div>
+      <div>
+        <div class="award-rank-text">우수상 &middot; 25만원</div>
+        <div class="award-title">ALCOHOL FREE</div>
+        <div class="award-team">T1A-02 &middot; 장하늘은빈, 유현수, 이준규, 김현우, 최지원, 김서현, 강다현</div>
+      </div>
+    </div>
+    <img class="award-image" src="images/awards2025/1A%EC%9A%B0%EC%88%98_1.png" alt="ALCOHOL FREE" onclick="openLightbox(2)">
+  </div>
+
+  <div class="award-card fade-up">
+    <div class="award-header">
+      <div class="award-rank rank-excellent">&#127944;</div>
+      <div>
+        <div class="award-rank-text">우수상 &middot; 25만원</div>
+        <div class="award-title">컴퓨터 탈출기</div>
+        <div class="award-team">T1A-11 &middot; 조예린, 성현우, 심예나</div>
+      </div>
+    </div>
+    <img class="award-image" src="images/awards2025/1A%EC%9A%B0%EC%88%98_2.png" alt="컴퓨터 탈출기" onclick="openLightbox(3)">
+  </div>
+
+  <div class="award-card fade-up">
+    <div class="award-header">
+      <div class="award-rank rank-excellent">&#127944;</div>
+      <div>
+        <div class="award-rank-text">우수상 &middot; 25만원</div>
+        <div class="award-title">Abyss : Xeno Depths</div>
+        <div class="award-team">T1A-07 &middot; 이윤재, 강석우</div>
+      </div>
+    </div>
+    <img class="award-image" src="images/awards2025/1A%EC%9A%B0%EC%88%98_3.png" alt="Abyss : Xeno Depths" onclick="openLightbox(4)">
+  </div>
+
+  <div class="award-card fade-up">
+    <div class="award-header">
+      <div class="award-rank rank-excellent">&#127944;</div>
+      <div>
+        <div class="award-rank-text">우수상 &middot; 25만원</div>
+        <div class="award-title">파일 타워 디펜스</div>
+        <div class="award-team">T1A-09 &middot; 최윤한, 이재우, 이민혁, 강래준</div>
+      </div>
+    </div>
+    <img class="award-image" src="images/awards2025/1A%EC%9A%B0%EC%88%98_4.png" alt="파일 타워 디펜스" onclick="openLightbox(5)">
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ====== Track 1-B ====== -->
+<section class="container" id="track1b">
+  <span class="track-badge track-badge-1b">TRACK 1-B</span>
+  <p class="section-title">게임그래픽 리소스 및 콘텐츠</p>
+  <p class="section-subtitle">동명대학교 게임학부 재학생 &middot; 총 시상 220만원</p>
+
+  <div class="award-card fade-up">
+    <div class="award-header">
+      <div class="award-rank rank-best">&#127941;</div>
+      <div>
+        <div class="award-rank-text">최우수상 &middot; 50만원</div>
+        <div class="award-title">페로니스</div>
+        <div class="award-team">T1B-08 &middot; 플레소프스키흐 예카트리나</div>
+      </div>
+    </div>
+    <img class="award-image" src="images/awards2025/1B%EC%B5%9C%EC%9A%B0%EC%88%98.png" alt="페로니스" onclick="openLightbox(6)">
+  </div>
+
+  <div class="award-card fade-up">
+    <div class="award-header">
+      <div class="award-rank rank-excellent">&#127944;</div>
+      <div>
+        <div class="award-rank-text">우수상 &middot; 25만원</div>
+        <div class="award-title">RE:BORN</div>
+        <div class="award-team">T1B-01 &middot; 이효근</div>
+      </div>
+    </div>
+    <img class="award-image" src="images/awards2025/1B%EC%9A%B0%EC%88%981.png" alt="RE:BORN" onclick="openLightbox(7)">
+  </div>
+
+  <div class="award-card fade-up">
+    <div class="award-header">
+      <div class="award-rank rank-excellent">&#127944;</div>
+      <div>
+        <div class="award-rank-text">우수상 &middot; 25만원</div>
+        <div class="award-title">지옥청사666</div>
+        <div class="award-team">T1B-03 &middot; 이수은, 김예린</div>
+      </div>
+    </div>
+    <img class="award-image" src="images/awards2025/1B%EC%9A%B0%EC%88%982.png" alt="지옥청사666" onclick="openLightbox(8)">
+  </div>
+
+  <div class="award-card fade-up">
+    <div class="award-header">
+      <div class="award-rank rank-excellent">&#127944;</div>
+      <div>
+        <div class="award-rank-text">우수상 &middot; 25만원</div>
+        <div class="award-title">ZZZ-&gt;이세계</div>
+        <div class="award-team">T1B-05 &middot; 이태경, 정무비, 김희경</div>
+      </div>
+    </div>
+    <img class="award-image" src="images/awards2025/1B%EC%9A%B0%EC%88%983.png" alt="ZZZ->이세계" onclick="openLightbox(9)">
+  </div>
+
+  <div class="award-card fade-up">
+    <div class="award-header">
+      <div class="award-rank rank-excellent">&#127944;</div>
+      <div>
+        <div class="award-rank-text">우수상 &middot; 25만원</div>
+        <div class="award-title">Two Face</div>
+        <div class="award-team">T1B-12 &middot; 조세리, 김여준</div>
+      </div>
+    </div>
+    <img class="award-image" src="images/awards2025/1B%EC%9A%B0%EC%88%984.png" alt="Two Face" onclick="openLightbox(10)">
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ====== IEEE Track 2 ====== -->
+<section class="container" id="track2">
+  <span class="track-badge track-badge-ieee">IEEE TRACK 2</span>
+  <p class="section-title">IEEE 부산섹션 트랙</p>
+  <p class="section-subtitle">부울경 지역 대학생 &middot; IEEE 부산섹션 후원 총 200만원</p>
+
+  <div class="award-card fade-up">
+    <div class="award-header">
+      <div class="award-rank rank-grand">&#127942;</div>
+      <div>
+        <div class="award-rank-text">대상 &middot; 100만원</div>
+        <div class="award-title">매직 브릭 인피니티</div>
+        <div class="award-team">T-204 &middot; 정예림, 정현우</div>
+      </div>
+    </div>
+    <img class="award-image" src="images/awards2025/2%EB%8C%80%EC%83%81.png" alt="매직 브릭 인피니티" onclick="openLightbox(11)">
+  </div>
+
+  <div class="award-card fade-up">
+    <div class="award-header">
+      <div class="award-rank rank-best">&#127941;</div>
+      <div>
+        <div class="award-rank-text">최우수상 &middot; 50만원</div>
+        <div class="award-title">Cross Wordle</div>
+        <div class="award-team">T-201 &middot; 유현수</div>
+      </div>
+    </div>
+    <img class="award-image" src="images/awards2025/2%EC%B5%9C%EC%9A%B0%EC%88%98.png" alt="Cross Wordle" onclick="openLightbox(12)">
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ====== G-STAR 부스 현장 ====== -->
+<section class="container" id="booth">
+  <p class="section-title">G-STAR 2025 전시 현장</p>
+  <p class="section-subtitle">2025년 11월 G-STAR에서 전시된 TU 게임 챌린지 수상작과 동명대학교 게임학부 부스입니다.</p>
+
+  <div class="booth-grid">
+    <div class="booth-item fade-up" onclick="openLightbox(13)">
+      <img src="images/awards2025/booth1.png" alt="G-STAR 2025 부스 전경 1">
+      <div class="booth-item-overlay"><p>G-STAR 2025 부스 전경</p></div>
+    </div>
+    <div class="booth-item fade-up" onclick="openLightbox(14)">
+      <img src="images/awards2025/booth2.png" alt="G-STAR 2025 부스 전경 2">
+      <div class="booth-item-overlay"><p>부스 내부 전경</p></div>
+    </div>
+    <div class="booth-item fade-up" onclick="openLightbox(15)">
+      <img src="images/awards2025/board1.png" alt="수상작 전시 보드 1">
+      <div class="booth-item-overlay"><p>수상작 전시 보드</p></div>
+    </div>
+    <div class="booth-item fade-up" onclick="openLightbox(16)">
+      <img src="images/awards2025/board2.png" alt="수상작 전시 보드 2">
+      <div class="booth-item-overlay"><p>수상작 전시 보드</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 라이트박스 ====== -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">&#10005;</button>
+  <button class="lightbox-prev" onclick="changeLightbox(-1)">&#8249;</button>
+  <img id="lightbox-img" src="" alt="">
+  <button class="lightbox-next" onclick="changeLightbox(1)">&#8250;</button>
+  <div class="lightbox-caption" id="lightbox-caption"></div>
+</div>
+
+<script>
+  const lbImages = [
+    { src: 'images/awards2025/1A%EB%8C%80%EC%83%81.png',           caption: 'Track 1-A 대상 · Food And Sinkhole' },
+    { src: 'images/awards2025/1A%EC%B5%9C%EC%9A%B0%EC%88%98.png',  caption: 'Track 1-A 최우수상 · 마음을 담아' },
+    { src: 'images/awards2025/1A%EC%9A%B0%EC%88%98_1.png',         caption: 'Track 1-A 우수상 · ALCOHOL FREE' },
+    { src: 'images/awards2025/1A%EC%9A%B0%EC%88%98_2.png',         caption: 'Track 1-A 우수상 · 컴퓨터 탈출기' },
+    { src: 'images/awards2025/1A%EC%9A%B0%EC%88%98_3.png',         caption: 'Track 1-A 우수상 · Abyss : Xeno Depths' },
+    { src: 'images/awards2025/1A%EC%9A%B0%EC%88%98_4.png',         caption: 'Track 1-A 우수상 · 파일 타워 디펜스' },
+    { src: 'images/awards2025/1B%EC%B5%9C%EC%9A%B0%EC%88%98.png',  caption: 'Track 1-B 최우수상 · 페로니스' },
+    { src: 'images/awards2025/1B%EC%9A%B0%EC%88%981.png',          caption: 'Track 1-B 우수상 · RE:BORN' },
+    { src: 'images/awards2025/1B%EC%9A%B0%EC%88%982.png',          caption: 'Track 1-B 우수상 · 지옥청사666' },
+    { src: 'images/awards2025/1B%EC%9A%B0%EC%88%983.png',          caption: 'Track 1-B 우수상 · ZZZ->이세계' },
+    { src: 'images/awards2025/1B%EC%9A%B0%EC%88%984.png',          caption: 'Track 1-B 우수상 · Two Face' },
+    { src: 'images/awards2025/2%EB%8C%80%EC%83%81.png',            caption: 'IEEE Track 2 대상 · 매직 브릭 인피니티' },
+    { src: 'images/awards2025/2%EC%B5%9C%EC%9A%B0%EC%88%98.png',   caption: 'IEEE Track 2 최우수상 · Cross Wordle' },
+    { src: 'images/awards2025/booth1.png',                          caption: 'G-STAR 2025 부스 전경' },
+    { src: 'images/awards2025/booth2.png',                          caption: '부스 내부 전경' },
+    { src: 'images/awards2025/board1.png',                          caption: '수상작 전시 보드' },
+    { src: 'images/awards2025/board2.png',                          caption: '수상작 전시 보드' },
+  ];
+  let currentIdx = 0;
+
+  function openLightbox(n) {
+    currentIdx = n;
+    updateLightbox();
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function closeLightboxOnBg(e) {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  }
+
+  function changeLightbox(dir) {
+    currentIdx = (currentIdx + dir + lbImages.length) % lbImages.length;
+    updateLightbox();
+  }
+
+  function updateLightbox() {
+    document.getElementById('lightbox-img').src = lbImages[currentIdx].src;
+    document.getElementById('lightbox-caption').textContent =
+      (currentIdx + 1) + ' / ' + lbImages.length + '  ·  ' + lbImages[currentIdx].caption;
+  }
+
+  document.addEventListener('keydown', e => {
+    const lb = document.getElementById('lightbox');
+    if (!lb.classList.contains('active')) return;
+    if (e.key === 'ArrowRight') changeLightbox(1);
+    if (e.key === 'ArrowLeft')  changeLightbox(-1);
+    if (e.key === 'Escape')     closeLightbox();
+  });
+</script>
+
+<!-- ====== 푸터 ====== -->
+<footer>
+  <p><strong>제3회 TU 게임 챌린지 2025 수상작</strong></p>
+  <p style="margin-top:8px;">동명대학교 게임학부 &middot; IEEE 부산섹션 공동 운영</p>
+</footer>
+
+</body>
+</html>
